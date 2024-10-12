@@ -28,3 +28,25 @@ test('asynchronous code test via async/await', async()=>{
     const data = await myFunction2();
     expect(data).toBe('Peanut Butter again');
 });
+
+//Mock function
+test('Mock function implementation', ()=>{
+    const mockFunction = jest.fn(x => 42 + x);
+    expect(mockFunction(1)).toBe(43);
+    expect(mockFunction).toHaveBeenCalledWith(1);
+});
+
+//Spying on method
+test('spying on a method of an object', ()=>{
+    const video = {
+        play(){
+            return true;
+        }
+    };
+
+    const spy = jest.spyOn(video, 'play');//creates a spy on the method.. useful since it does not alter the behavior of the function itself
+    video.play();// calls the function
+
+    expect(spy).toHaveBeenCalled();// checks whether the function has been called atleast once
+    spy.mockRestore(); //restores the original implementation of the play method. (basic clean up)
+});
