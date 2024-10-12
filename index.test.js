@@ -1,5 +1,6 @@
-const myFunction = require('./index');
+const {myFunction, myFunction2, myFunction1} = require('./index');
 
+//Callback test
 test('asynchronous code test via callbacks', (done)=>{
     function callback(data){
         try {
@@ -11,4 +12,19 @@ test('asynchronous code test via callbacks', (done)=>{
     }
 
     myFunction(callback);
+});
+
+//Promise test
+test('asynchronous code test via promise-resolve', ()=>{
+    return expect(myFunction2()).resolves.toBe("Peanut Butter again");
+});
+
+test('asynchronous code test via promise-reject', ()=>{
+    return expect(myFunction1()).rejects.toThrow("Error");
+});
+
+//Async/Await test
+test('asynchronous code test via async/await', async()=>{
+    const data = await myFunction2();
+    expect(data).toBe('Peanut Butter again');
 });
